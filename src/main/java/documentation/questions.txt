@@ -1,0 +1,5 @@
+1. Liquibase - подключить/настроить/отключить
+2. One to Many / Many to One - как лучьше применять.
+3. Библиотеки - как из отключать/удалять
+4. Разница между /api/autos/{id} и /api/autos?vinNumber=...
+5. Два одинакоые запроса URL: /api/orders/idAuto/{idAuto} and URL: /api/orders/{idOrder} как изх разделить
