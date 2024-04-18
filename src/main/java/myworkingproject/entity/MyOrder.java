@@ -1,22 +1,30 @@
 package myworkingproject.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.Map;
 
+import static myworkingproject.entity.OrderStatus.*;
+
 @Entity
-@Data
+@Getter
+@Setter
+
+//@ToString
+//@EqualsAndHashCode
+
 @AllArgsConstructor
 @NoArgsConstructor
-public class Order {
+//@Builder
+public class MyOrder {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idOrder;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.EAGER)
     private Auto auto;
 
@@ -31,7 +39,7 @@ public class Order {
     private LocalDateTime lastUpdate;
 
     @Enumerated(EnumType.STRING)
-    private OrderStatus status = OrderStatus.CREATED;
+    private OrderStatus status = CREATED;
     private String description;
 
 }

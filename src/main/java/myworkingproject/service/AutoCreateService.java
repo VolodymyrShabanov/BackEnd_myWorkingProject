@@ -1,9 +1,8 @@
 package myworkingproject.service;
 
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import myworkingproject.dto.autoDto.AutoCreateRequestDto;
-import myworkingproject.dto.autoDto.AutoCreateResponseDto;
+import myworkingproject.dto.autoDto.AutoRequestDto;
+import myworkingproject.dto.autoDto.AutoResponseDto;
 import myworkingproject.entity.Auto;
 import myworkingproject.repository.AutoRepository;
 import myworkingproject.service.converter.AutoConverter;
@@ -14,14 +13,14 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 //@RequiredArgsConstructor
 public class AutoCreateService {
-     private final AutoRepository repository;
-     private AutoConverter converter;
+     private final AutoRepository autoRepository;
+     private AutoConverter autoConverter;
 
-     public AutoCreateResponseDto createAuto(AutoCreateRequestDto request){
-         if (repository.findByVinNumber(request.getVinNumber()).isEmpty()){
+     public AutoResponseDto createAuto(AutoRequestDto request){
+         if (autoRepository.findByVinNumber(request.getVinNumber()).isEmpty()){
 
-             Auto newAuto = converter.fromCreateRequest(request);
-             return converter.toCreateResponse(repository.save(newAuto));
+             Auto newAuto = autoConverter.fromRequest(request);
+             return autoConverter.toResponse(autoRepository.save(newAuto));
          } else {
              throw new AlreadyExistException("Auto with VIN Number: " + request.getVinNumber() + " all ready exist!");
          }

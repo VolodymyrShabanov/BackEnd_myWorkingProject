@@ -1,8 +1,8 @@
-package myworkingproject.controller;
+package myworkingproject.controller.Auto;
 
 import lombok.AllArgsConstructor;
-import myworkingproject.dto.autoDto.AutoCreateRequestDto;
-import myworkingproject.dto.autoDto.AutoCreateResponseDto;
+import myworkingproject.dto.autoDto.AutoRequestDto;
+import myworkingproject.dto.autoDto.AutoResponseDto;
 import myworkingproject.service.AutoCreateService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +15,7 @@ public class AutoCreateController {
     private final AutoCreateService autoCreateService;
 
     @PostMapping("/createAuto")
-    public ResponseEntity<AutoCreateResponseDto> createAuto(@RequestBody AutoCreateRequestDto request){
+    public ResponseEntity<AutoResponseDto> createAuto(@RequestBody AutoRequestDto request){
         return new ResponseEntity<>(autoCreateService.createAuto(request), HttpStatus.CREATED);
     }
 }

@@ -92,7 +92,7 @@
 *a) автомобиля;*  
   - method POST
   - URL: api/autos/createAuto
-  - Request: AutoCreateRequestDto
+  - Request: AutoRequestDto
       ```
       {
         "vinNumber" : "VIN1234",
@@ -101,7 +101,7 @@
       }
       ```
   
-  - Response: AutoCreateResponseDto
+  - Response: AutoResponseDto
       ```
       {
         "idAuto" : "idAuto1",
@@ -112,15 +112,15 @@
       ```
 *b) заказа;*
   - method POST
-  - URL: api/orders/ -> createOrder
-  - Request: OrderCreateRequestDto
+  - URL: api/orders/createOrder
+  - Request: MyOrderRequestDto
       ```
       {
         "idAuto" : "idAuto1",
         "description" : "Описание"
-    }
+      }
       ```
-  - Response: OrderResponseDto
+  - Response: MyOrderResponseDto
       ```
       {
         "idOrder" : "idOrder1",
@@ -134,7 +134,7 @@
 *b) запчасти;*
   - method POST
   - URL: api/spareParts/ -> createSparePart
-  - Request: SparePartCreateUpdateRequestDto
+  - Request: SparePartRequestDto
       ```
       {
         "name" : "SparePart1",
@@ -156,7 +156,7 @@
      - method GET
      - URL: /api/autos
      - Request: 
-     - Response: AutoCreateResponseDto
+     - Response: AutoResponseDto
       ```
       {
         "idAuto" : "idAuto1",
@@ -175,13 +175,22 @@
         "idAuto" : "idAuto1"
       }
       ```
-     - Response: AutoCreateResponseDto
+     - Response: AutoByIdResponseDto
       ```
       {
         "idAuto" : "idAuto1",
         "vinNumber" : "VIN1234",
         "brand" : "brand1",
         "model" : "model1"
+        "idOrders" :
+          {
+            {
+              "idOrder" : "idOrder1",
+              "LocalDateTime" : "Дата последнего обновления",
+              "OrderStatus" : "CREATED"
+            },
+            ....    
+          }
       }
       ```
  
@@ -195,7 +204,7 @@
         "vinNumber" : "VIN1234",
       }
       ```
-     - Response: AutoCreateResponseDto
+     - Response: AutoResponseDto
       ```
       {
         "idAuto" : "idAuto1",
@@ -214,7 +223,7 @@
         "brand" : "brand1",
       }
       ```
-     - Response: AutoCreateResponseDto
+     - Response: AutoResponseDto
       ```
       {
         "idAuto" : "idAuto1",
@@ -234,7 +243,7 @@
         "model" : "model1",
       }
       ```
-     - Response: AutoCreateResponseDto
+     - Response: AutoResponseDto
      ```
      {
        "idAuto" : "idAuto1",
@@ -250,12 +259,11 @@
      - method GET
      - URL: /api/orders
      - Request:
-     - Response: OrderResponseDto
+     - Response: MyOrderResponseDto
       ```
       {
         "idOrder" : "idOrder1",
         "idAuto" : "idAuto1",
-        "idSpareParts" :
         "LocalDateTime" : "Дата создания",
         "LocalDateTime" : "Дата последнего обновления",
         "OrderStatus" : "CREATED",
@@ -272,7 +280,7 @@
         "idOrder" : "idOrder1"
       }
       ```
-    - Response: OrderResponseByIdDto
+    - Response: MyOrderByIdResponseDto
       ```
       {
         "idOrder" : "idOrder1",
@@ -301,7 +309,7 @@
         "idAuto" : "idAuto"
       }
       ```
-    - Response: OrderResponseDto
+    - Response: MyOrderResponseDto
       ```
       {
         "idOrder" : "idOrder1",
@@ -323,7 +331,7 @@
         "createDate" : "2024-04-11"
       }
       ```
-    - Response: OrderResponseDto
+    - Response: MyOrderResponseDto
       ```
       {
         "idOrder" : "idOrder1",
@@ -334,8 +342,27 @@
         "description" : "Описание"
       }
       
- - по дате создания: за период; - ???
-  
+ - по дате создания: за период; 
+     - method GET
+     - URL: /api/orders?createDateFrom=...&createDateTo=....
+     - Param: createDateFrom, createDateTo;
+     - Request:
+       ```
+       {
+         "createDateFrom" : "2024-04-11",
+         "createDateTo" : "2024-04-15"
+       }
+       ```
+     - Response: MyOrderResponseDto
+       ```
+       {
+         "idOrder" : "idOrder1",
+         "idAuto" : "idAuto1",
+         "LocalDateTime" : "2024-04-11",
+         "LocalDateTime" : "Дата последнего обновления",
+         "OrderStatus" : "CREATED",
+         "description" : "Описание"
+       }
 
  - по статусу;
    - method GET
@@ -348,7 +375,7 @@
       }
       ```
 
-   - Response: OrderResponseDto
+   - Response: MyOrderResponseDto
       ```
        {
          "idOrder" : "idOrder1",
@@ -426,7 +453,7 @@
         "model" : "model2"
       }
       ```
-      - Response: AutoCreateResponseDto
+      - Response: AutoResponseDto
       ```
       {
         "idAuto" : "idAuto1",
@@ -447,7 +474,7 @@
         "quantity" : "12"
       }
       ```
-       - Response: OrderResponseByIdDto
+       - Response: MyOrderByIdResponseDto
       ```
       {
         "idOrder" : "idOrder1",
@@ -477,7 +504,7 @@
         "idSparePart" : "idSparePart3",
       }
       ```
-   - Response: OrderResponseByIdDto
+   - Response: MyOrderByIdResponseDto
       ```
       {
         "idOrder" : "idOrder1",
@@ -511,7 +538,7 @@
         "description" : "new Описание"
       }
       ```
-   - Response: OrderResponseDto
+   - Response: MyOrderResponseDto
       ```   
       {
         "idOrder" : "idOrder1",
@@ -526,7 +553,7 @@
    - названия и/или описание
       - method POST
       - URL: api/spareParts/ -> updateSparePart
-      - Request: SparePartCreateUpdateRequestDto
+      - Request: SparePartUpdateRequestDto
       ```
       {
         "name" : "SparePart2",

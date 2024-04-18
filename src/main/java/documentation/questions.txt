@@ -1,5 +1,20 @@
 1. Liquibase - подключить/настроить/отключить
-2. One to Many / Many to One - как лучьше применять.
 3. Библиотеки - как из отключать/удалять
+
+2. One to Many / Many to One - как лучьше применять.
 4. Разница между /api/autos/{id} и /api/autos?vinNumber=...
 5. Два одинакоые запроса URL: /api/orders/idAuto/{idAuto} and URL: /api/orders/{idOrder} как изх разделить
+6. (@RequestBody AutoCreateRequestDto request) - у класса AutoCreateRequestDto нет конструктора. Как создается екземпляр класса?
+
+7. как поменять местами поля в response JSON
+{
+    "idOrder": 4,
+    "createDate": "2024-04-16T20:02:59.5893957",
+    "lastUpdate": "2024-04-16T20:02:59.5893957",
+    "status": "CREATED",
+    "description": "Описание",
+    "idAuto": 1 - ?????
+}
+
+8. С какими типами данных лучьше работать с JSON
+т.е. String или можно использовать и лругие (LocalDataTime, Integer, ...)

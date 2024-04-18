@@ -1,8 +1,8 @@
 package myworkingproject.service;
 
 import lombok.AllArgsConstructor;
-import myworkingproject.dto.autoDto.AutoCreateRequestDto;
-import myworkingproject.dto.autoDto.AutoCreateResponseDto;
+import myworkingproject.dto.autoDto.AutoByIdResponseDto;
+import myworkingproject.dto.autoDto.AutoResponseDto;
 import myworkingproject.entity.Auto;
 import myworkingproject.repository.AutoRepository;
 import myworkingproject.service.converter.AutoConverter;
@@ -14,36 +14,44 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 public class AutoFindService {
-    private final AutoRepository repository;
-    private AutoConverter converter;
+    private final AutoRepository autoRepository;
+    private AutoConverter autoConverter;
 
-    public List<AutoCreateResponseDto> findAll(){
-        return repository.findAll().stream()
-                .map(converter::toCreateResponse)
+    public List<AutoResponseDto> findAll() {
+        return autoRepository.findAll().stream()
+                .map(autoConverter::toResponse)
                 .toList();
     }
 
-    public AutoCreateResponseDto findById(Integer idAuto) {
-        Auto auto = repository.findById(idAuto)
+    public AutoByIdResponseDto findById(Integer idAuto) {
+        Auto auto = autoRepository.findById(idAuto)
                 .orElseThrow(() -> new NotFoundException("Auto with id: " + idAuto + " not found"));
-        return converter.toCreateResponse(auto);
+
+        return autoConverter.toByIdResponseDto(auto);
     }
 
-    public AutoCreateResponseDto findByVinNumber(String vinNumber) {
-        Auto auto = repository.findByVinNumber(vinNumber)
+
+    public Auto findByIdReturnAuto(Integer idAuto) {
+        Auto auto = autoRepository.findById(idAuto)
+                .orElseThrow(() -> new NotFoundException("Auto with id: " + idAuto + " not found"));
+        return auto;
+    }
+
+    public AutoResponseDto findByVinNumber(String vinNumber) {
+        Auto auto = autoRepository.findByVinNumber(vinNumber)
                 .orElseThrow(() -> new NotFoundException("Auto with vin number: " + vinNumber + " not found!"));
-        return converter.toCreateResponse(auto);
+        return autoConverter.toResponse(auto);
     }
 
-    public List<AutoCreateResponseDto> findByBrand(String brand){
-        return repository.findByBrand(brand).stream()
-                .map(converter::toCreateResponse)
+    public List<AutoResponseDto> findByBrand(String brand) {
+        return autoRepository.findByBrand(brand).stream()
+                .map(autoConverter::toResponse)
                 .toList();
     }
 
-    public List<AutoCreateResponseDto> findByModel(String model){
-        return repository.findByModel(model).stream()
-                .map(converter::toCreateResponse)
+    public List<AutoResponseDto> findByModel(String model) {
+        return autoRepository.findByModel(model).stream()
+                .map(autoConverter::toResponse)
                 .toList();
     }
 

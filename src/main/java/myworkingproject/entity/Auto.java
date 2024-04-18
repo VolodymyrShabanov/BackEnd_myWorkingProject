@@ -1,14 +1,14 @@
 package myworkingproject.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 
 @Entity
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class Auto {
@@ -19,7 +19,8 @@ public class Auto {
     private String brand;
     private String model;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "auto", cascade = CascadeType.ALL)
-    private List<Order> orders;
+    private List<MyOrder> myOrders;
 
 }

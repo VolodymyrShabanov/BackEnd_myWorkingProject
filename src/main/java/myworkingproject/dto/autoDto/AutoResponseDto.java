@@ -5,7 +5,7 @@ import lombok.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class AutoCreateResponseDto {
+public class AutoResponseDto {
     private Integer id;
     private String vinNumber;
     private String brand;
