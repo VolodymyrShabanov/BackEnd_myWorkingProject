@@ -10,6 +10,7 @@
         a) автомобиля;
         b) заказа;
         c) запчасти;
+        d) количества запчастей;
     2. Поиск:
         a) автомобиля:
             - всех;
@@ -28,6 +29,11 @@
             - всех;
             - по ID запчасти;
             - по названию;
+        c) элемент заказа:
+            - всех;
+            - по ID элемент заказа;
+            - по ID запчасти;
+            - по ID заказа;
     3. Редактирование:
         a) автомобиля:
             - бренда;
@@ -58,7 +64,7 @@
     2. Order (заказ):
             Integer idOrder;
             Auto auto;
-            Map<SparePart, Integer> spareParts;
+            List<OrderItem> orderItemList;
             LocalDateTime createDate;
             LocalDateTime lastUpdate;
             OrderStatus status;
@@ -68,13 +74,15 @@
             Integer idSparePart;
             String name;
             String description;
+            Integer quantity;
     
-    4. Warehouse(склад):
-            Integer idWarehouse;
-            String name;
-            Map<SparePart, Integer> spareParts;
+    4. OrderItem(элемент заказа)
+            Integer idOrderItem
+            Integer quantity;
+            SparePart sparePart;
+            MyOrder myOrder;
 
-    4. OrderStatus (статусы заказа):
+    5. OrderStatus (статусы заказа):
                 CREATED,
                 OPEN,
                 COMPLETED,
@@ -85,6 +93,7 @@
     1. AutoRepository
     2. OrderRepository
     3. SparePartRepository
+    4. MyOrderItemRepository
 
 ### Описание REST API:
 **1. Создание:**  
@@ -104,7 +113,7 @@
   - Response: AutoResponseDto
       ```
       {
-        "idAuto" : "idAuto1",
+        "idAuto" : "1",
         "vinNumber" : "VIN1234",
         "brand" : "brand1",
         "model" : "model1"
@@ -116,17 +125,17 @@
   - Request: MyOrderRequestDto
       ```
       {
-        "idAuto" : "idAuto1",
+        "idAuto" : "3",
         "description" : "Описание"
       }
       ```
   - Response: MyOrderResponseDto
       ```
       {
-        "idOrder" : "idOrder1",
-        "idAuto" : "idAuto1",
-        "LocalDateTime" : "Дата создания",
-        "LocalDateTime" : "Дата последнего обновления",
+        "idOrder" : "1",
+        "idAuto" : "3",
+        "LocalDateTime" : "yy-MM-ddT00:00:00",
+        "LocalDateTime" : "YY-MM-ddT00:00:00",
         "OrderStatus" : "CREATED",
         "description" : "Описание"
       }
@@ -138,17 +147,40 @@
       ```
       {
         "name" : "SparePart1",
+        "quantity" : "10"
         "description" : "Описание"
       }
       ```
   - Response: SparePartResponseDto
       ```
       {
-        "idSparePart" : "idSparePart1",
+        "idSparePart" : "1",
         "name" : "SparePart1",
+        "quantity" : "10"
         "description" : "Описание"
       }
       ```
+
+*d) элемент заказа;*
+   - method POST
+   - URL: api/orderItems/createOrderItem
+   - Request: MyOrderItemRequestDto
+       ```
+       {
+         "idSparePart" : "5",
+         "idMyOrder" : "3"
+         "quantity" : "29"
+       }
+       ```
+   - Response: MyOrderItemResponseDto
+       ```
+       {
+         "idMyOrderItem" : "1",
+         "idSparePart" : "5",
+         "idMyOrder" : "3",
+         "quantity" : "29"
+       }
+       ```
 
 **2.Поиск:**  
 *a) автомобиля:*
@@ -285,10 +317,11 @@
       {
         "idOrder" : "idOrder1",
         "idAuto" : "idAuto1",
-        "idSpareParts" :
+        "orderItemsList" :
         {
           {
-            "idSparePart" : "idSparePart1",
+            "idSparePart" : "2",
+            "nameSparePart": "Тормозные колодки передние",
             "quantity" : "1"
           }
           ....
@@ -396,7 +429,7 @@
       {
         "idSparePart" : "idSparePart1",
         "name" : "SparePart1",
-        "quantity" : "1";
+        "quantity" : "10"
         "description" : "Описание"
       },
       ...
@@ -416,7 +449,7 @@
       {
         "idSparePart" : "idSparePart1",
         "name" : "SparePart1",
-        "quantity" : "1";
+        "quantity" : "10"
         "description" : "Описание"
       },
       ```
@@ -435,18 +468,96 @@
       {
         "idSparePart" : "idSparePart1",
         "name" : "SparePart1",
-        "quantity" : "1";
+        "quantity" : "10"
         "description" : "Описание"
       },
       ...
       ```
-      
+
+*c) элемент заказа:*
+- всех;
+    - method GET
+    - URL: /api/orderItems
+    - Request:
+    - Response: MyOrderItemResponseDto
+      ```
+      {
+        "idOrderItem" : "1",
+        "idSparePart" : "5",
+        "idOrder" : "3"
+        "quantity" : "10"
+        "
+      },
+      ...
+      ```
+  - по ID элемент заказа;
+      - method GET
+      - URL: /api/orderItems/{idOrderItem}
+      - Request:
+        ```
+        {
+          "idOrderItem" : "10"
+        }
+        ```
+      - Response: SparePartResponseDto
+      ```
+      {
+        "idOrderItem" : "10",
+        "idSparePart" : "5",
+        "idOrder" : "3"
+        "quantity" : "10"
+        "
+      },
+      ...
+      ```
+    
+- по ID запчасти;
+    - method GET
+    - URL: /api/orderItems/idSparePart:{idSparePart}
+    - Request:
+      ```
+      {
+        "idSparePart" : "3"
+      }
+      ```
+    - Response: SparePartResponseDto
+      ```
+      {
+        "idOrderItem" : "1",
+        "idSparePart" : "3",
+        "idOrder" : "3"
+        "quantity" : "10"
+        "
+      },
+      ...
+      ```
+- по ID заказа;
+    - method GET
+    - URL: /api/myOrders/orderItems/idOrder:{idOrder}
+    - Request:
+      ```
+      {
+        "idOrder" : "5"
+      }
+      ```
+    - Response: SparePartResponseDto
+      ```
+      {
+        "idOrderItem" : "1",
+        "idSparePart" : "3",
+        "idOrder" : "5"
+        "quantity" : "3"
+        "
+      },
+      ...
+      ```
+         
 **3. Редактирование:**
 *a) автомобиля:*
    - бренда и/или модели;
       - method POST
       - URL: api/autos/ -> updateAuto
-      - Request: AutoUpdateRequestDto
+      - Request: AutoRequestDto
       ```
       {
         "brand" : "brand2",

@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import myworkingproject.entity.Auto;
 
 import java.util.List;
 
@@ -19,12 +18,5 @@ public class AutoByIdResponseDto {
     private String model;
     private List<AutoListMyOrderDto> myOrdersList;
 
-//    public  AutoByIdResponseDto fromEntity(Auto auto){
-//        return new AutoByIdResponseDto(auto.getIdAuto(),
-//                auto.getVinNumber(),
-//                auto.getBrand(),
-//                auto.getModel(),
-//                auto.getMyOrders()
-//    }
 
 }

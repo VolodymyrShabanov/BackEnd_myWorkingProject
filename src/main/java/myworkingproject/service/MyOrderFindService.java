@@ -12,7 +12,6 @@ import myworkingproject.service.exeption.NotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.List;
 
 @Service
@@ -23,29 +22,35 @@ public class MyOrderFindService {
     private MyOrderConverter myOrderConverter;
 
 
-
-    public List<MyOrderResponseDto> findAll(){
+    public List<MyOrderResponseDto> findAll() {
         return myOrderRepository.findAll().stream()
                 .map(myOrderConverter::toResponse)
                 .toList();
     }
 
-    public MyOrderByIdResponseDto findById(Integer idMyOrder){
+    public MyOrderByIdResponseDto findById(Integer idMyOrder) {
         MyOrder myOrder = myOrderRepository.findById(idMyOrder)
                 .orElseThrow(() -> new NotFoundException("Order with id: " + idMyOrder + " not found"));
 
         return myOrderConverter.toByIdResponse(myOrder);
     }
 
-    public List<MyOrderResponseDto> findByIdAuto(Integer idAuto){
-        Auto foundAuto = autoFindService.findByIdReturnAuto(idAuto);
+    public MyOrder findByIdReturnMyOrder(Integer idMyOrder) {
+        MyOrder myOrder = myOrderRepository.findById(idMyOrder)
+                .orElseThrow(() -> new NotFoundException("Order with id: " + idMyOrder + " not found"));
 
-         return myOrderRepository.findByAuto(foundAuto).stream()
-                 .map(myOrderConverter::toResponse)
-                 .toList();
+        return myOrder;
     }
 
-    public List<MyOrderResponseDto> findByCreateDateBetween(String createDateFrom, String createDateTo){
+    public List<MyOrderResponseDto> findByIdAuto(Integer idAuto) {
+        Auto foundAuto = autoFindService.findByIdReturnAuto(idAuto);
+
+        return myOrderRepository.findByAuto(foundAuto).stream()
+                .map(myOrderConverter::toResponse)
+                .toList();
+    }
+
+    public List<MyOrderResponseDto> findByCreateDateBetween(String createDateFrom, String createDateTo) {
 
         // Преобразование строки createDate в LocalDateTime С НАЧАЛОМ ДНЯ
         LocalDateTime startDateTime = LocalDateTime.parse(createDateFrom + "T00:00:00");
@@ -61,7 +66,7 @@ public class MyOrderFindService {
     }
 
 
-    public List<MyOrderResponseDto> findByStatus(String status){
+    public List<MyOrderResponseDto> findByStatus(String status) {
         OrderStatus foundOrderStatus = OrderStatus.fromString(status);
 
         return myOrderRepository.findByStatus(foundOrderStatus).stream()
@@ -69,7 +74,6 @@ public class MyOrderFindService {
                 .toList();
 
     }
-
 
 
 }

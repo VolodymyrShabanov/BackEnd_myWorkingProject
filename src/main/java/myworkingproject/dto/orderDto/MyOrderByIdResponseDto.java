@@ -13,13 +13,15 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 public class MyOrderByIdResponseDto {
+
     private Integer idOrder;
     private Integer idAuto;
-    private List<MyOrderListSparePartDto> sparePartsList;
+    private List<MyOrderItemListDto> orderItemsList;
     private LocalDateTime createDate;
     private LocalDateTime lastUpdate;
     private OrderStatus status;
     private String description;
+
 }
 
 

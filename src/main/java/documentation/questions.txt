@@ -18,3 +18,11 @@
 
 8. С какими типами данных лучьше работать с JSON
 т.е. String или можно использовать и лругие (LocalDataTime, Integer, ...)
+
+9. Почемы выводится весь список сущностей если ошибка в запросе по параметрам.
+т.е. работает Обработчик (controller) который выполняется по адресу RequestMapping("/api/autos") - указанному по умолчанию
+
+10. как работает метод PUT
+11. почему нужно віполнять Auto saveAuto = autoRepository.save(updateAuto);
+почеему не работает .set... => updateAuto.setModel(request.getModel());
+12. @Component and @Bean and @Autowired

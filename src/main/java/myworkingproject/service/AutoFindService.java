@@ -7,6 +7,7 @@ import myworkingproject.entity.Auto;
 import myworkingproject.repository.AutoRepository;
 import myworkingproject.service.converter.AutoConverter;
 import myworkingproject.service.exeption.NotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,7 +16,7 @@ import java.util.List;
 @AllArgsConstructor
 public class AutoFindService {
     private final AutoRepository autoRepository;
-    private AutoConverter autoConverter;
+    private final AutoConverter autoConverter;
 
     public List<AutoResponseDto> findAll() {
         return autoRepository.findAll().stream()
@@ -25,7 +26,7 @@ public class AutoFindService {
 
     public AutoByIdResponseDto findById(Integer idAuto) {
         Auto auto = autoRepository.findById(idAuto)
-                .orElseThrow(() -> new NotFoundException("Auto with id: " + idAuto + " not found"));
+                .orElseThrow(() -> new NotFoundException("Auto with id: " + idAuto + " not found!"));
 
         return autoConverter.toByIdResponseDto(auto);
     }
@@ -33,7 +34,7 @@ public class AutoFindService {
 
     public Auto findByIdReturnAuto(Integer idAuto) {
         Auto auto = autoRepository.findById(idAuto)
-                .orElseThrow(() -> new NotFoundException("Auto with id: " + idAuto + " not found"));
+                .orElseThrow(() -> new NotFoundException("Auto with id: " + idAuto + " not found!"));
         return auto;
     }
 
@@ -44,16 +45,27 @@ public class AutoFindService {
     }
 
     public List<AutoResponseDto> findByBrand(String brand) {
-        return autoRepository.findByBrand(brand).stream()
+        List<Auto> autos = autoRepository.findByBrand(brand);
+
+        if (autos.isEmpty()) {
+            throw new NotFoundException("Auto with brand: " + brand + " not found!");
+        }
+
+        return autos.stream()
                 .map(autoConverter::toResponse)
                 .toList();
     }
 
     public List<AutoResponseDto> findByModel(String model) {
-        return autoRepository.findByModel(model).stream()
+        List<Auto> autos = autoRepository.findByBrand(model);
+
+        if (autos.isEmpty()) {
+            throw new NotFoundException("Auto with model: " + model + " not found!");
+        }
+
+        return autos.stream()
                 .map(autoConverter::toResponse)
                 .toList();
     }
-
 
 }

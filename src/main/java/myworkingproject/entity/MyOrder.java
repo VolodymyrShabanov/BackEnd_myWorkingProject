@@ -2,23 +2,21 @@ package myworkingproject.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
-import java.util.Map;
+import java.util.List;
 
-import static myworkingproject.entity.OrderStatus.*;
+import static myworkingproject.entity.OrderStatus.CREATED;
 
 @Entity
 @Getter
 @Setter
-
-//@ToString
-//@EqualsAndHashCode
-
 @AllArgsConstructor
 @NoArgsConstructor
-//@Builder
 public class MyOrder {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,12 +26,9 @@ public class MyOrder {
     @ManyToOne(fetch = FetchType.EAGER)
     private Auto auto;
 
-    @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "order_spare_parts",
-            joinColumns = @JoinColumn(name = "order_id"))
-    @MapKeyJoinColumn(name = "spare_part_id")
-    @Column(name = "quantity")
-    private Map<SparePart, Integer> spareParts;
+    @JsonIgnore
+    @OneToMany(mappedBy = "myOrder", cascade = CascadeType.ALL)
+    private List<MyOrderItem> myOrderItemList;
 
     private LocalDateTime createDate;
     private LocalDateTime lastUpdate;

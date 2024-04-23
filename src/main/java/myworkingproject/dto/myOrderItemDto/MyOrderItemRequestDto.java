@@ -1,12 +1,15 @@
-package myworkingproject.dto.orderDto;
+package myworkingproject.dto.myOrderItemDto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class MyOrderListSparePartDto {
+public class MyOrderItemRequestDto {
     private Integer idSparePart;
-    private String nameSparePart;
+    private Integer idMyOrder;
     private Integer quantity;
+
 }
+
+

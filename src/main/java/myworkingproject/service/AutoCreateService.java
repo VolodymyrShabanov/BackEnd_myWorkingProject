@@ -13,17 +13,17 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 //@RequiredArgsConstructor
 public class AutoCreateService {
-     private final AutoRepository autoRepository;
-     private AutoConverter autoConverter;
+    private final AutoRepository autoRepository;
+    private AutoConverter autoConverter;
 
-     public AutoResponseDto createAuto(AutoRequestDto request){
-         if (autoRepository.findByVinNumber(request.getVinNumber()).isEmpty()){
+    public AutoResponseDto createAuto(AutoRequestDto request) {
+        if (autoRepository.findByVinNumber(request.getVinNumber()).isEmpty()) {
 
-             Auto newAuto = autoConverter.fromRequest(request);
-             return autoConverter.toResponse(autoRepository.save(newAuto));
-         } else {
-             throw new AlreadyExistException("Auto with VIN Number: " + request.getVinNumber() + " all ready exist!");
-         }
+            Auto newAuto = autoConverter.fromRequest(request);
+            return autoConverter.toResponse(autoRepository.save(newAuto));
+        } else {
+            throw new AlreadyExistException("Auto with VIN Number: " + request.getVinNumber() + " all ready exist!");
+        }
 
-     }
+    }
 }

@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+
 @Slf4j
 @RestController
 @RequestMapping("/api/autos")
@@ -29,7 +30,8 @@ public class AutoFindController {
 
     @GetMapping
     @Operation(summary = "Get all AUTO")
-    @ApiResponse(responseCode = "200", description = "Successfully!!!",
+    @ApiResponse(responseCode = "200",
+            description = "Successfully!!!",
             content = {@Content(mediaType = "application/json",
                     schema = @Schema(implementation = Auto.class)),})
     public ResponseEntity<List<AutoResponseDto>> findAll(){
@@ -38,7 +40,8 @@ public class AutoFindController {
 
     @GetMapping("/{idAuto}")
     @Operation(summary = "Get AUTO by ID")
-    @ApiResponse(responseCode = "200", description = "Successfully!!!",
+    @ApiResponse(responseCode = "200",
+            description = "Successfully!!!",
             content = {@Content(mediaType = "application/json",
                     schema = @Schema(implementation = Auto.class)),})
 
@@ -46,11 +49,10 @@ public class AutoFindController {
         return new ResponseEntity<>(autoFindService.findById(idAuto), HttpStatus.OK);
     }
 
-    @GetMapping(params = "vinNumber")
+    @GetMapping("/") // тут вопрос как правильно организзовать запрос по параметрам
     public ResponseEntity<AutoResponseDto> findByVinNumber(@RequestParam String vinNumber){
-        return new ResponseEntity<>(autoFindService.findByVinNumber(vinNumber),HttpStatus.OK);
+        return new ResponseEntity<>(autoFindService.findByVinNumber(vinNumber), HttpStatus.OK);
     }
-
     @GetMapping(params = "brand")
     public ResponseEntity<List<AutoResponseDto>> findByBrand(@RequestParam String brand){
         return new ResponseEntity<>(autoFindService.findByBrand(brand), HttpStatus.OK);

@@ -1,15 +1,27 @@
 package myworkingproject.controller.myOrder;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.tags.Tags;
 import lombok.AllArgsConstructor;
-import myworkingproject.dto.autoDto.AutoResponseDto;
 import myworkingproject.dto.orderDto.MyOrderByIdResponseDto;
 import myworkingproject.dto.orderDto.MyOrderResponseDto;
+import myworkingproject.entity.MyOrder;
 import myworkingproject.service.MyOrderFindService;
+import myworkingproject.service.exeption.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
+@Tags(
+        @Tag(name = "Orders")
+)
 
 @RestController
 @AllArgsConstructor
@@ -17,10 +29,32 @@ import java.util.List;
 public class MyOrderFindController {
     private MyOrderFindService myOrderFindService;
 
-    @GetMapping
+    @GetMapping("/all")
     public ResponseEntity<List<MyOrderResponseDto>> findAll(){
         return new ResponseEntity<>(myOrderFindService.findAll(), HttpStatus.OK);
     }
+
+    @Operation(summary = "Find order by Id", description = "available to everyone")
+    @ApiResponses(value = {
+            @ApiResponse (responseCode = "200",
+                    description = "we get order",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = MyOrderByIdResponseDto.class))),
+
+            @ApiResponse (responseCode = "400",
+                    description = "Bad REQUEST",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(
+                                    type = "string",  // Указываем, что возвращаемый тип - String
+                                    description = "not valid ....."))),  // Описание возвращаемой строки)), // -> ?????????
+
+            @ApiResponse (responseCode = "404",
+                    description = "Order with id - not exist!!",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(
+                                    type = "string",  // Указываем, что возвращаемый тип - String
+                                    description = "not valid ....."))),  // Описание возвращаемой строки)), // -> ?????????
+    })
 
     @GetMapping("/{idMyOrder}")
     public ResponseEntity<MyOrderByIdResponseDto> findById (@PathVariable("idMyOrder") Integer idMyOrder){

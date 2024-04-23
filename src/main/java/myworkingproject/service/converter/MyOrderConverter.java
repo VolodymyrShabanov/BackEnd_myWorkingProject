@@ -1,18 +1,15 @@
 package myworkingproject.service.converter;
 
 import myworkingproject.dto.orderDto.MyOrderByIdResponseDto;
-import myworkingproject.dto.orderDto.MyOrderListSparePartDto;
+import myworkingproject.dto.orderDto.MyOrderItemListDto;
 import myworkingproject.dto.orderDto.MyOrderRequestDto;
 import myworkingproject.dto.orderDto.MyOrderResponseDto;
 import myworkingproject.entity.Auto;
 import myworkingproject.entity.MyOrder;
-import myworkingproject.entity.SparePart;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class MyOrderConverter {
@@ -37,31 +34,21 @@ public class MyOrderConverter {
                 myOrder.getStatus(),
                 myOrder.getDescription()
         );
-
-//        return MyOrderCreateResponseDto.builder()
-//                .idOrder(myOrder.getIdOrder())
-//                .idAuto(idAuto)
-//                .createDate(myOrder.getCreateDate())
-//                .lastUpdate(myOrder.getLastUpdate())
-//                .status(myOrder.getStatus())
-//                .description(myOrder.getDescription())
-//                .build();
     }
 
     public MyOrderByIdResponseDto toByIdResponse(MyOrder myOrder) {
-        List<MyOrderListSparePartDto> spareParts = new ArrayList<>();
 
-        for (Map.Entry<SparePart, Integer> entry : myOrder.getSpareParts().entrySet()) {
-            SparePart sparePart = entry.getKey();
-            Integer quantity = entry.getValue();
-
-            spareParts.add(new MyOrderListSparePartDto(sparePart.getIdSparePart(), sparePart.getName(), quantity));
-        }
+        List<MyOrderItemListDto> spareParts = myOrder.getMyOrderItemList().stream()
+                .map(myOrderItem -> new MyOrderItemListDto(myOrderItem.getSparePart().getIdSparePart(),
+                                    myOrderItem.getSparePart().getName(),
+                                    myOrderItem.getQuantity())).toList();
 
         return MyOrderByIdResponseDto.builder()
                 .idOrder(myOrder.getIdOrder())
                 .idAuto(myOrder.getAuto().getIdAuto())
-                .sparePartsList(spareParts)
+
+                .orderItemsList(spareParts)
+
                 .createDate(myOrder.getCreateDate())
                 .lastUpdate(myOrder.getLastUpdate())
                 .status(myOrder.getStatus())
