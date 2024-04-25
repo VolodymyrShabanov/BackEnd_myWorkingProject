@@ -6,7 +6,7 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class MyOrderRequestDto {
- private String idAuto;
+ private Integer idAuto;
  private String description;
 
 }

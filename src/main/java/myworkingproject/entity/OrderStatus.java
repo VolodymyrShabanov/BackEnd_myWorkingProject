@@ -1,4 +1,5 @@
 package myworkingproject.entity;
+import myworkingproject.service.exeption.IllegalArgumentException;
 
 public enum OrderStatus {
     CREATED("Created"),
@@ -22,6 +23,6 @@ public enum OrderStatus {
             }
         }
 
-        throw new IllegalArgumentException("There is no such status value");
+        throw new IllegalArgumentException("There is no such status value! Accepted statuses: CREATED, OPEN, COMPLETED, CLOSE, DELETE");
     }
 }

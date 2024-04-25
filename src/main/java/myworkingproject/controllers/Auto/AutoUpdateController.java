@@ -1,9 +1,9 @@
-package myworkingproject.controller.Auto;
+package myworkingproject.controllers.Auto;
 
 import lombok.AllArgsConstructor;
 import myworkingproject.dto.autoDto.AutoRequestDto;
 import myworkingproject.dto.autoDto.AutoResponseDto;
-import myworkingproject.service.AutoUpdateService;
+import myworkingproject.service.auto.AutoUpdateService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +19,7 @@ public class AutoUpdateController {
 //        return new ResponseEntity<>(autoUpdateService.updateAutoByVinNumber(vinNumber, request), HttpStatus.OK);
 //    }
 
-    @PutMapping("/update")
+    @PutMapping("/updateAuto")
     public ResponseEntity<AutoResponseDto> updateAutoByVinNumber(@RequestBody AutoRequestDto request){
         return new ResponseEntity<>(autoUpdateService.updateAutoByVinNumber(request), HttpStatus.OK);
     }

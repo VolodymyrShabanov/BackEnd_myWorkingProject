@@ -1,9 +1,9 @@
-package myworkingproject.controller.Auto;
+package myworkingproject.controllers.Auto;
 
 import lombok.AllArgsConstructor;
 import myworkingproject.dto.autoDto.AutoRequestDto;
 import myworkingproject.dto.autoDto.AutoResponseDto;
-import myworkingproject.service.AutoCreateService;
+import myworkingproject.service.auto.AutoCreateService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

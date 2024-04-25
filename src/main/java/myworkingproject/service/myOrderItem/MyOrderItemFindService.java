@@ -1,4 +1,4 @@
-package myworkingproject.service;
+package myworkingproject.service.myOrderItem;
 
 import lombok.AllArgsConstructor;
 import myworkingproject.dto.myOrderItemDto.MyOrderItemResponseDto;
@@ -26,6 +26,13 @@ public class MyOrderItemFindService {
 
         return MyOrderItemResponseDto.toResponse(orderItem);
     }
+
+    public MyOrderItem findByIdReturnOrderItem(Integer idOrderItem){
+        return myOrderItemRepository.findById(idOrderItem)
+                .orElseThrow(() -> new NotFoundException("Order item with id: " + idOrderItem + " not found!"));
+
+    }
+
 
     public List<MyOrderItemResponseDto> findByIdSparePart(Integer idSparePart){
         return myOrderItemRepository.findBySparePartIdSparePart(idSparePart).stream()

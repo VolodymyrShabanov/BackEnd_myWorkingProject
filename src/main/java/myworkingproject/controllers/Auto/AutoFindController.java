@@ -1,4 +1,4 @@
-package myworkingproject.controller.Auto;
+package myworkingproject.controllers.Auto;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -11,7 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import myworkingproject.dto.autoDto.AutoByIdResponseDto;
 import myworkingproject.dto.autoDto.AutoResponseDto;
 import myworkingproject.entity.Auto;
-import myworkingproject.service.AutoFindService;
+import myworkingproject.service.auto.AutoFindService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

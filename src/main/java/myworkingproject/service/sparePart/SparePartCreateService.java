@@ -1,4 +1,4 @@
-package myworkingproject.service;
+package myworkingproject.service.sparePart;
 
 import lombok.AllArgsConstructor;
 import myworkingproject.dto.sparePartDto.SparePartRequestDto;

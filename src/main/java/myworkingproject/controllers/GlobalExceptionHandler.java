@@ -1,7 +1,9 @@
-package myworkingproject.controller;
+package myworkingproject.controllers;
+
 
 import myworkingproject.service.exeption.AlreadyExistException;
 import myworkingproject.service.exeption.CalculateException;
+import myworkingproject.service.exeption.IllegalArgumentException;
 import myworkingproject.service.exeption.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,4 +32,8 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<String> handlerIllegalArgumentException(IllegalArgumentException e){
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+    }
 }

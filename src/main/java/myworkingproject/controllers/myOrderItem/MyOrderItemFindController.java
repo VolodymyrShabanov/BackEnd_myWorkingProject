@@ -1,8 +1,8 @@
-package myworkingproject.controller.myOrderItem;
+package myworkingproject.controllers.myOrderItem;
 
 import lombok.AllArgsConstructor;
 import myworkingproject.dto.myOrderItemDto.MyOrderItemResponseDto;
-import myworkingproject.service.MyOrderItemFindService;
+import myworkingproject.service.myOrderItem.MyOrderItemFindService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,7 +15,7 @@ import java.util.List;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api/orderItems")
-public class myOrderItemFindController {
+public class MyOrderItemFindController {
     private MyOrderItemFindService myOrderItemFindService;
 
     @GetMapping

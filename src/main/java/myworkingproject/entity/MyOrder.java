@@ -27,7 +27,7 @@ public class MyOrder {
     private Auto auto;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "myOrder", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "myOrder", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<MyOrderItem> myOrderItemList;
 
     private LocalDateTime createDate;

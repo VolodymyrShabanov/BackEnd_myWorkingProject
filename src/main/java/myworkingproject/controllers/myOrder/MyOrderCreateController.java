@@ -1,9 +1,9 @@
-package myworkingproject.controller.myOrder;
+package myworkingproject.controllers.myOrder;
 
 import lombok.AllArgsConstructor;
 import myworkingproject.dto.orderDto.MyOrderRequestDto;
 import myworkingproject.dto.orderDto.MyOrderResponseDto;
-import myworkingproject.service.MyOrderCreateService;
+import myworkingproject.service.myOrder.MyOrderCreateService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;

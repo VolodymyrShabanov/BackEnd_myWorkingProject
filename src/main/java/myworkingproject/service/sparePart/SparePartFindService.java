@@ -1,4 +1,4 @@
-package myworkingproject.service;
+package myworkingproject.service.sparePart;
 
 import lombok.AllArgsConstructor;
 import myworkingproject.dto.sparePartDto.SparePartResponseDto;
@@ -24,14 +24,14 @@ public class SparePartFindService {
 
     public SparePartResponseDto findById(Integer idSparePart) {
         SparePart foundSparePart = sparePartRepository.findByIdSparePart(idSparePart)
-                .orElseThrow(() -> new NotFoundException("Spare part with id " + idSparePart + " not found"));
+                .orElseThrow(() -> new NotFoundException("Spare part with id: "  + idSparePart + " not found"));
 
         return sparePartConverter.toResponse(foundSparePart);
     }
 
     public SparePart findByIdReturnSparePart(Integer idSparePart) {
         SparePart foundSparePart = sparePartRepository.findByIdSparePart(idSparePart)
-                .orElseThrow(() -> new NotFoundException("Spare part with id " + idSparePart + " not found"));
+                .orElseThrow(() -> new NotFoundException("Spare part with id: " + idSparePart + " not found"));
 
         return foundSparePart;
     }

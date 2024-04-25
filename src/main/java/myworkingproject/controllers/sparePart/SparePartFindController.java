@@ -1,8 +1,8 @@
-package myworkingproject.controller.sparePart;
+package myworkingproject.controllers.sparePart;
 
 import lombok.AllArgsConstructor;
 import myworkingproject.dto.sparePartDto.SparePartResponseDto;
-import myworkingproject.service.SparePartFindService;
+import myworkingproject.service.sparePart.SparePartFindService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

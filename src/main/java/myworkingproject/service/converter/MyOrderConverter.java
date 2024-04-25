@@ -39,9 +39,10 @@ public class MyOrderConverter {
     public MyOrderByIdResponseDto toByIdResponse(MyOrder myOrder) {
 
         List<MyOrderItemListDto> spareParts = myOrder.getMyOrderItemList().stream()
-                .map(myOrderItem -> new MyOrderItemListDto(myOrderItem.getSparePart().getIdSparePart(),
-                                    myOrderItem.getSparePart().getName(),
-                                    myOrderItem.getQuantity())).toList();
+                .map(myOrderItem -> new MyOrderItemListDto(myOrderItem.getIdOrderItem(),
+                        myOrderItem.getSparePart().getIdSparePart(),
+                        myOrderItem.getSparePart().getName(),
+                        myOrderItem.getQuantity())).toList();
 
         return MyOrderByIdResponseDto.builder()
                 .idOrder(myOrder.getIdOrder())

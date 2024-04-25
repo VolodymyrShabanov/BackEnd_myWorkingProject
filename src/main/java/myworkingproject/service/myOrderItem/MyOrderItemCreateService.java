@@ -1,4 +1,4 @@
-package myworkingproject.service;
+package myworkingproject.service.myOrderItem;
 
 import lombok.AllArgsConstructor;
 import myworkingproject.dto.myOrderItemDto.MyOrderItemRequestDto;
@@ -7,6 +7,8 @@ import myworkingproject.entity.MyOrder;
 import myworkingproject.entity.MyOrderItem;
 import myworkingproject.entity.SparePart;
 import myworkingproject.repository.MyOrderItemRepository;
+import myworkingproject.service.myOrder.MyOrderFindService;
+import myworkingproject.service.sparePart.SparePartFindService;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -14,7 +16,6 @@ import org.springframework.stereotype.Service;
 public class MyOrderItemCreateService {
     private final MyOrderItemRepository myOrderItemRepository;
     private SparePartFindService sparePartFindService;
-    private SparePartChangeService sparePartChangeService;
     private MyOrderFindService myOrderFindService;
 
     public MyOrderItemResponseDto createOrderItem(MyOrderItemRequestDto request) {
@@ -23,9 +24,10 @@ public class MyOrderItemCreateService {
         Integer quantity = request.getQuantity();
 
         SparePart sparePart = sparePartFindService.findByIdReturnSparePart(idSparePart);
+
         MyOrder myOrder = myOrderFindService.findByIdReturnMyOrder(idMyOrder);
 
-        sparePartChangeService.take(sparePart, quantity);
+        sparePart.takeQuantity(quantity);
 
         MyOrderItem newMyOrderItem = MyOrderItem.builder()
                 .quantity(quantity)
@@ -41,7 +43,7 @@ public class MyOrderItemCreateService {
         SparePart sparePart = sparePartFindService.findByIdReturnSparePart(idSparePart);
         MyOrder myOrder = myOrderFindService.findByIdReturnMyOrder(idOrder);
 
-        sparePartChangeService.take(sparePart, quantity);
+        sparePart.takeQuantity(quantity);
 
         MyOrderItem newMyOrderItem = MyOrderItem.builder()
                 .quantity(quantity)

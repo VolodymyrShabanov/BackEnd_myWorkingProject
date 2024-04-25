@@ -1,4 +1,4 @@
-package myworkingproject.service;
+package myworkingproject.service.auto;
 
 import lombok.AllArgsConstructor;
 import myworkingproject.dto.autoDto.AutoRequestDto;

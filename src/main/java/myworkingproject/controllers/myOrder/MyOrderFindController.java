@@ -1,4 +1,4 @@
-package myworkingproject.controller.myOrder;
+package myworkingproject.controllers.myOrder;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -10,9 +10,7 @@ import io.swagger.v3.oas.annotations.tags.Tags;
 import lombok.AllArgsConstructor;
 import myworkingproject.dto.orderDto.MyOrderByIdResponseDto;
 import myworkingproject.dto.orderDto.MyOrderResponseDto;
-import myworkingproject.entity.MyOrder;
-import myworkingproject.service.MyOrderFindService;
-import myworkingproject.service.exeption.NotFoundException;
+import myworkingproject.service.myOrder.MyOrderFindService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

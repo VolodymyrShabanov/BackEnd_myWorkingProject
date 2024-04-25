@@ -1,4 +1,4 @@
-package myworkingproject.service;
+package myworkingproject.service.myOrder;
 
 import lombok.AllArgsConstructor;
 import myworkingproject.dto.orderDto.MyOrderRequestDto;
@@ -6,6 +6,7 @@ import myworkingproject.dto.orderDto.MyOrderResponseDto;
 import myworkingproject.entity.Auto;
 import myworkingproject.entity.MyOrder;
 import myworkingproject.repository.MyOrderRepository;
+import myworkingproject.service.auto.AutoFindService;
 import myworkingproject.service.converter.MyOrderConverter;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +19,7 @@ public class MyOrderCreateService {
 
     public MyOrderResponseDto createMyOrder(MyOrderRequestDto request){
 
-        Integer idAutoFromRequest = Integer.valueOf(request.getIdAuto());
+        Integer idAutoFromRequest = request.getIdAuto();
 
         Auto foundAuto = autoFindService.findByIdReturnAuto(idAutoFromRequest);
 

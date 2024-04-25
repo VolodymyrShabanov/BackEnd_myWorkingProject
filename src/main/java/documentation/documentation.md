@@ -38,20 +38,21 @@
         a) автомобиля:
             - бренда;
             - модели;
-        b) заказа: 
-            - добавление запчастей по ID запчасти;
-            - удаление запчастей по ID запчасти;
-            - изменение количества запчастей по ID;
+        b) заказа:
             - именение описания;
             - изменение статуса;
         с) запчасти:
             - названия;
             - описание;
             - количества;
+        e) элемент заказа:
+            - изменение количества (увеличение, уменьшение) запчастей по ID элемента заказа;
+
     4. Удаление: - ??????
         - автомобиля;
         - заказа;
         - запчасти;
+        - элемента заказа;
 
 ### Описание сущностей:
     1. Auto (автомобиль):
@@ -59,12 +60,12 @@
             String vinNumber;
             String brand;
             String model;
-            List<Order> orders;
+            List<MyOrder> myOrders;
 
     2. Order (заказ):
-            Integer idOrder;
+            Integer idMyOrder;
             Auto auto;
-            List<OrderItem> orderItemList;
+            List<MyOrderItem> MyOrderItemList;
             LocalDateTime createDate;
             LocalDateTime lastUpdate;
             OrderStatus status;
@@ -76,8 +77,8 @@
             String description;
             Integer quantity;
     
-    4. OrderItem(элемент заказа)
-            Integer idOrderItem
+    4. MyOrderItem(элемент заказа)
+            Integer idMyOrderItem
             Integer quantity;
             SparePart sparePart;
             MyOrder myOrder;
@@ -91,7 +92,7 @@
 
 ### Репозитории:
     1. AutoRepository
-    2. OrderRepository
+    2. MyOrderRepository
     3. SparePartRepository
     4. MyOrderItemRepository
 
@@ -121,7 +122,7 @@
       ```
 *b) заказа;*
   - method POST
-  - URL: api/orders/createOrder
+  - URL: api/myOrders/createMyOrder
   - Request: MyOrderRequestDto
       ```
       {
@@ -132,7 +133,7 @@
   - Response: MyOrderResponseDto
       ```
       {
-        "idOrder" : "1",
+        "idMyOrder" : "1",
         "idAuto" : "3",
         "LocalDateTime" : "yy-MM-ddT00:00:00",
         "LocalDateTime" : "YY-MM-ddT00:00:00",
@@ -142,7 +143,7 @@
       ```
 *b) запчасти;*
   - method POST
-  - URL: api/spareParts/ -> createSparePart
+  - URL: api/spareParts/createSparePart
   - Request: SparePartRequestDto
       ```
       {
@@ -163,7 +164,7 @@
 
 *d) элемент заказа;*
    - method POST
-   - URL: api/orderItems/createOrderItem
+   - URL: api/myOrderItems/createMyOrderItem
    - Request: MyOrderItemRequestDto
        ```
        {
@@ -201,23 +202,24 @@
    - по ID Auto;
      - method GET
      - URL: /api/autos/{idAuto}
+     - PathVariable: idAuto
      - Request:
       ```
       {
-        "idAuto" : "idAuto1"
+        "idAuto" : "1"
       }
       ```
      - Response: AutoByIdResponseDto
       ```
       {
-        "idAuto" : "idAuto1",
+        "idAuto" : "1",
         "vinNumber" : "VIN1234",
         "brand" : "brand1",
         "model" : "model1"
-        "idOrders" :
+        "idMyOrders" :
           {
             {
-              "idOrder" : "idOrder1",
+              "idMyOrder" : "1",
               "LocalDateTime" : "Дата последнего обновления",
               "OrderStatus" : "CREATED"
             },
@@ -239,7 +241,7 @@
      - Response: AutoResponseDto
       ```
       {
-        "idAuto" : "idAuto1",
+        "idAuto" : "1",
         "vinNumber" : "VIN1234",
         "brand" : "brand1",
         "model" : "model1"
@@ -258,7 +260,7 @@
      - Response: AutoResponseDto
       ```
       {
-        "idAuto" : "idAuto1",
+        "idAuto" : "1",
         "vinNumber" : "VIN1234",
         "brand" : "brand1",
         "model" : "model1"
@@ -278,7 +280,7 @@
      - Response: AutoResponseDto
      ```
      {
-       "idAuto" : "idAuto1",
+       "idAuto" : "1",
        "vinNumber" : "VIN1234",
        "brand" : "brand1",
        "model" : "model1"
@@ -289,13 +291,13 @@
 *b) заказа:*
   - всех;
      - method GET
-     - URL: /api/orders
+     - URL: /api/MyOrders
      - Request:
      - Response: MyOrderResponseDto
       ```
       {
-        "idOrder" : "idOrder1",
-        "idAuto" : "idAuto1",
+        "idMyOrder" : "1",
+        "idAuto" : "3",
         "LocalDateTime" : "Дата создания",
         "LocalDateTime" : "Дата последнего обновления",
         "OrderStatus" : "CREATED",
@@ -305,19 +307,20 @@
       ```
   - по ID заказа;
     - method GET
-    - URL: /api/orders/{idOrder}
+    - URL: /api/MyOrders/{idMyOrder}
+    - PathVariable: idMyOrder
     - Request:
       ```
       {
-        "idOrder" : "idOrder1"
+        "idMyOrder" : "2"
       }
       ```
     - Response: MyOrderByIdResponseDto
       ```
       {
-        "idOrder" : "idOrder1",
-        "idAuto" : "idAuto1",
-        "orderItemsList" :
+        "idMyOrder" : "2",
+        "idAuto" : "1",
+        "MyOrderItemsList" :
         {
           {
             "idSparePart" : "2",
@@ -335,18 +338,19 @@
 
   - по ID Auto;
     - method GET
-    - URL: /api/orders/idAutos/{idAuto}
+    - URL: /api/MyOrders/idAutos/{idAuto}
+    - PathVariable: idAuto
     - Request:
       ```
       {
-        "idAuto" : "idAuto"
+        "idAuto" : "3"
       }
       ```
     - Response: MyOrderResponseDto
       ```
       {
-        "idOrder" : "idOrder1",
-        "idAuto" : "idAuto1",
+        "idMyOrder" : "5",
+        "idAuto" : "3",
         "LocalDateTime" : "Дата создания",
         "LocalDateTime" : "Дата последнего обновления",
         "OrderStatus" : "CREATED",
@@ -356,7 +360,7 @@
 
   - по дате создания: на дату;
     - method GET
-    - URL: /api/orders?createDate=...
+    - URL: /api/MyOrders?createDate=...
     - Param: createDate;
     - Request:
       ```
@@ -367,7 +371,7 @@
     - Response: MyOrderResponseDto
       ```
       {
-        "idOrder" : "idOrder1",
+        "idMyOrder" : "1",
         "idAuto" : "idAuto1",
         "LocalDateTime" : "2024-04-11",
         "LocalDateTime" : "Дата последнего обновления",
@@ -377,7 +381,7 @@
       
  - по дате создания: за период; 
      - method GET
-     - URL: /api/orders?createDateFrom=...&createDateTo=....
+     - URL: /api/myOrders?createDateFrom=...&createDateTo=....
      - Param: createDateFrom, createDateTo;
      - Request:
        ```
@@ -389,17 +393,19 @@
      - Response: MyOrderResponseDto
        ```
        {
-         "idOrder" : "idOrder1",
+         "idMyOrder" : "1",
          "idAuto" : "idAuto1",
          "LocalDateTime" : "2024-04-11",
          "LocalDateTime" : "Дата последнего обновления",
          "OrderStatus" : "CREATED",
          "description" : "Описание"
        }
+       ....
+       ```
 
  - по статусу;
    - method GET
-   - URL: /api/orders?status=...
+   - URL: /api/myOrders?status=...
    - Param: status;
    - Request:
       ```
@@ -411,13 +417,14 @@
    - Response: MyOrderResponseDto
       ```
        {
-         "idOrder" : "idOrder1",
+         "idMyOrder" : "1",
          "idAuto" : "idAuto1",
          "LocalDateTime" : "Дата создания",
          "LocalDateTime" : "Дата последнего обновления",
          "OrderStatus" : "OPEN",
          "description" : "Описание"
        }
+        ....
       ```
 *b) запчасти:*
   - всех;
@@ -438,6 +445,7 @@
   - по ID запчасти;
     - method GET
     - URL: /api/spareParts/{idSparePart}
+    - PathVariable: idSparePart
     - Request:
       ```
       {
@@ -471,20 +479,20 @@
         "quantity" : "10"
         "description" : "Описание"
       },
-      ...
+      ....
       ```
 
 *c) элемент заказа:*
 - всех;
     - method GET
-    - URL: /api/orderItems
+    - URL: /api/MyOrderItems
     - Request:
     - Response: MyOrderItemResponseDto
       ```
       {
-        "idOrderItem" : "1",
+        "idMyOrderItem" : "1",
         "idSparePart" : "5",
-        "idOrder" : "3"
+        "idMyOrder" : "3"
         "quantity" : "10"
         "
       },
@@ -492,28 +500,29 @@
       ```
   - по ID элемент заказа;
       - method GET
-      - URL: /api/orderItems/{idOrderItem}
+      - URL: /api/myOrderItems/{idMyOrderItem}
+      - PathVariable: idMyOrderItem
       - Request:
         ```
         {
-          "idOrderItem" : "10"
+          "idMyOrderItem" : "10"
         }
         ```
       - Response: SparePartResponseDto
       ```
       {
-        "idOrderItem" : "10",
+        "idMyOrderItem" : "10",
         "idSparePart" : "5",
-        "idOrder" : "3"
+        "idMyOrder" : "3"
         "quantity" : "10"
-        "
       },
       ...
       ```
     
 - по ID запчасти;
     - method GET
-    - URL: /api/orderItems/idSparePart:{idSparePart}
+    - URL: /api/myOrderItems/idSparePart:{idSparePart}
+    - PathVariable: idSparePart
     - Request:
       ```
       {
@@ -523,9 +532,9 @@
     - Response: SparePartResponseDto
       ```
       {
-        "idOrderItem" : "1",
+        "idMyOrderItem" : "1",
         "idSparePart" : "3",
-        "idOrder" : "3"
+        "idMyOrder" : "3"
         "quantity" : "10"
         "
       },
@@ -533,19 +542,20 @@
       ```
 - по ID заказа;
     - method GET
-    - URL: /api/myOrders/orderItems/idOrder:{idOrder}
+    - URL: /api/myOrderItems/idMyOrder:{idMyOrder}
+    - PathVariable: idMyOrder
     - Request:
       ```
       {
-        "idOrder" : "5"
+        "idMyOrder" : "5"
       }
       ```
     - Response: SparePartResponseDto
       ```
       {
-        "idOrderItem" : "1",
+        "idMyOrderItem" : "1",
         "idSparePart" : "3",
-        "idOrder" : "5"
+        "idMyOrder" : "5"
         "quantity" : "3"
         "
       },
@@ -555,11 +565,12 @@
 **3. Редактирование:**
 *a) автомобиля:*
    - бренда и/или модели;
-      - method POST
-      - URL: api/autos/ -> updateAuto
+      - method PUT
+      - URL: api/autos/updateAuto
       - Request: AutoRequestDto
       ```
       {
+        "vinNumber" : "VIN1234",
         "brand" : "brand2",
         "model" : "model2"
       }
@@ -567,115 +578,75 @@
       - Response: AutoResponseDto
       ```
       {
-        "idAuto" : "idAuto1",
+        "idAuto" : "1",
         "vinNumber" : "VIN1234",
         "brand" : "brand2",
         "model" : "model2"
       }
       ```
 *b) заказа:*
-   - изменение (добавление, увеличение, уменьшение) количества запчастей по ID;
-       - method POST
-       - URL: /api/orders?idSparePart=...&quantity=...,
-       - Params: idSparePart, quantity
-       - Request:
-      ```
-      {
-        "idSparePart" : "idSparePart3",
-        "quantity" : "12"
-      }
-      ```
-       - Response: MyOrderByIdResponseDto
-      ```
-      {
-        "idOrder" : "idOrder1",
-        "idAuto" : "idAuto1",
-        "idSpareParts" :
-          {
-          ...
-            {
-              "idSparePart" : "idSparePart3", - add
-              "quantity" : "12";
-            },
-          ...
-          },
-        "LocalDateTime" : "Дата создания",
-        "LocalDateTime" : "Дата последнего обновления", - current date
-        "OrderStatus" : "CREATED",
-        "description" : "Описание"
-      }
-      ```
-   - удаление запчастей по ID запчасти;
-       - method POST
-       - URL: /api/orders?idSparePart=...,
-       - Params: idSparePart
-       - Request:
-      ```
-      {
-        "idSparePart" : "idSparePart3",
-      }
-      ```
-   - Response: MyOrderByIdResponseDto
-      ```
-      {
-        "idOrder" : "idOrder1",
-        "idAuto" : "idAuto1",
-        "idSpareParts" :
-          {
-            {
-              "idSparePart" : "idSparePart2",
-              "quantity" : "1";
-            },
-            ....  - delete
-            {
-              "idSparePart" : "idSparePart4",
-              "quantity" : "1";
-            },
-          },
-        "LocalDateTime" : "Дата создания",
-        "LocalDateTime" : "Дата последнего обновления", - current date
-        "OrderStatus" : "CREATED"
-        "description" : "Описание"
-      }
-      ```
-   - именение описания и/или статуса;
-       - method POST
-       - URL: /api/orders?status=...&description=...,
-       - Params: status, idSparePart
-       - Request:
-      ```
-      {
-        "status" : "COMPLETED"
-        "description" : "new Описание"
-      }
-      ```
+   - именение статуса и/или описания;
+        - method PUT
+        - URL: /api/myOrders/updateMyOrder/{idMyOrder}?status=...&description=...,
+        - PathVariable: idMyOrder
+        - Params: status, idSparePart
+        - Request:
+       ```
+       {
+         "status" : "COMPLETED"
+         "description" : "new Описание"
+       }
+       ```
    - Response: MyOrderResponseDto
-      ```   
-      {
-        "idOrder" : "idOrder1",
-        "idAuto" : "idAuto1",
-        "LocalDateTime" : "Дата создания",
-        "LocalDateTime" : "Дата последнего обновления", - current date
-        "OrderStatus" : "COMPLETED"
-        "description" : "new Описание"
-      }
-      ```
+       ```   
+       {
+         "idMyOrder" : "1",
+         "idAuto" : "2",
+         "LocalDateTime" : "Дата создания",
+         "LocalDateTime" : "Дата последнего обновления", - current date
+         "OrderStatus" : "COMPLETED"
+         "description" : "new Описание"
+       }
+       ```
 *с) запчасти:*
-   - названия и/или описание
-      - method POST
-      - URL: api/spareParts/ -> updateSparePart
-      - Request: SparePartUpdateRequestDto
+   - описания
+      - method PUT
+      - URL: api/spareParts/updateSparePart/{idSparePart}
+      - PathVariable: idSparePart
+      - Params: description
+      - Request: 
       ```
       {
-        "name" : "SparePart2",
         "description" : "new Описание"
       }
       ```
       - Response: SparePartResponseDto
       ```
       {
-        "idSparePart" : "idSparePart1",
-        "name" : "SparePart2",
+        "idSparePart" : "1",
+        "name" : "SparePart1",
         "description" : "new Описание"
       }
       ```
+
+*e) элемента заказа:*
+   - изменение количества (увеличение, уменьшение) запчастей по ID элемента заказа;
+     - method PUT
+     - URL: api/myOrderItems/updateMyOrderItem/{idMyOrderItem}
+     - PathVariable: idMyOrderItem
+     - Params: quantity;
+     - Request: 
+     ```
+     {
+        "quantity" : "2"
+     }
+     ```
+     - Response: MyOrderItemResponseDto
+     ```
+     {
+        "idMyOrderItem" : "1",
+        "idSparePart" : "5",
+        "idMyOrder" : "3",
+        quantity" : "2"
+     }
+     ```

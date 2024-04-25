@@ -1,4 +1,4 @@
-package myworkingproject.service;
+package myworkingproject.service.auto;
 
 import lombok.AllArgsConstructor;
 import myworkingproject.dto.autoDto.AutoByIdResponseDto;
@@ -7,7 +7,6 @@ import myworkingproject.entity.Auto;
 import myworkingproject.repository.AutoRepository;
 import myworkingproject.service.converter.AutoConverter;
 import myworkingproject.service.exeption.NotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -57,7 +56,7 @@ public class AutoFindService {
     }
 
     public List<AutoResponseDto> findByModel(String model) {
-        List<Auto> autos = autoRepository.findByBrand(model);
+        List<Auto> autos = autoRepository.findByModel(model);
 
         if (autos.isEmpty()) {
             throw new NotFoundException("Auto with model: " + model + " not found!");

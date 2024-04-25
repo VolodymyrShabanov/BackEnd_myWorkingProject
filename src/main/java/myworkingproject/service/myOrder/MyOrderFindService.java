@@ -1,4 +1,4 @@
-package myworkingproject.service;
+package myworkingproject.service.myOrder;
 
 import lombok.AllArgsConstructor;
 import myworkingproject.dto.orderDto.MyOrderByIdResponseDto;
@@ -7,6 +7,7 @@ import myworkingproject.entity.Auto;
 import myworkingproject.entity.MyOrder;
 import myworkingproject.entity.OrderStatus;
 import myworkingproject.repository.MyOrderRepository;
+import myworkingproject.service.auto.AutoFindService;
 import myworkingproject.service.converter.MyOrderConverter;
 import myworkingproject.service.exeption.NotFoundException;
 import org.springframework.stereotype.Service;
