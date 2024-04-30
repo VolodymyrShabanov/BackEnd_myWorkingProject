@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+		http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd">
+
+    <!--======= create ===========================-->
+
+    <changeSet id="create.table.auto" author="dev">
+        <createTable tableName="auto">
+            <column name="id_auto" type="INT" autoIncrement="true" >
+                <constraints primaryKey="true" nullable="true"/>
+            </column>
+            <column name="vin_number" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="brand" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="model" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+
+    <changeSet id="create.table.my_order" author="dev">
+        <createTable tableName="my_order">
+            <column name="id_my_order" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="true"/>
+            </column>
+            <column name="auto_id_auto" type="INT">
+                <constraints nullable="false"/>
+            </column>
+
+            <!--============
+            List<MyOrderItem> - ??????
+            как правильно описывать связи
+            ===============-->
+
+            <column name="create_date" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_update" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="VARCHAR(255)">
+                <constraints nullable="true"/>
+            </column>
+
+        </createTable>
+
+        <addForeignKeyConstraint baseTableName="my_order" baseColumnNames="auto_id_auto"
+                                 constraintName="fk_my_order_auto_id"
+                                 referencedTableName="auto"
+                                 referencedColumnNames="id_auto"/>
+
+    </changeSet>
+
+    <changeSet id="create.table.spare_part" author="dev">
+        <createTable tableName="spare_part">
+            <column name="id_spare_part" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="true"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="quantity" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="VARCHAR(255)">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+
+    <changeSet id="create.table.my_order_item" author="dev">
+        <createTable tableName="my_order_item">
+            <column name="id_my_order_item" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="true"/>
+            </column>
+            <column name="quantity" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="spare_part_id_spare_part" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="my_order_id_my_order" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        
+        <addForeignKeyConstraint baseTableName="my_order_item" baseColumnNames="spare_part_id_spare_part"
+                                 constraintName="fk_my_order_item_spare_part_id"
+                                 referencedTableName="spare_part"
+                                 referencedColumnNames="id_spare_part"/>
+
+        <addForeignKeyConstraint baseTableName="my_order_item" baseColumnNames="my_order_id_my_order"
+                                 constraintName="fk_my_order_item_my_order_id"
+                                 referencedTableName="my_order"
+                                 referencedColumnNames="id_my_order"/>
+    </changeSet>
+
+
+
+
+
+    <!--======= insert ===========================-->
+
+    <changeSet id="insert.default.auto" author="dev">
+        <insert tableName="auto">
+            <column name="vin_number" value="Auto_test"/>
+            <column name="brand" value="brand_test"/>
+            <column name="model" value="model_test"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="insert.default.my_order" author="dev">
+        <insert tableName="my_order">
+            <column name="auto_id_auto" value="1"/>
+            <column name="create_date" value="2024-04-29 00:00:00"/>
+            <column name="last_update" value="2024-04-29 00:00:01"/>
+            <column name="status" value="CREATED"/>
+            <column name="description" value="my_order_description"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="insert.default.spare_part" author="dev">
+        <insert tableName="spare_part">
+            <column name="name" value="oil filter X123"/>
+            <column name="quantity" value="28"/>
+            <column name="description" value="spare_part_description"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="insert.default.my_order_item" author="dev">
+        <insert tableName="my_order_item">
+            <column name="quantity" value="12"/>
+            <column name="spare_part_id_spare_part" value="1"/>
+            <column name="my_order_id_my_order" value="1"/>
+        </insert>
+    </changeSet>
+
+
+
+</databaseChangeLog>

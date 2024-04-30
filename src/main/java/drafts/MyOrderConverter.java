@@ -27,7 +27,7 @@
 //    public MyOrderResponseDto toResponse(MyOrder myOrder) {
 //
 //        return new MyOrderResponseDto(
-//                myOrder.getIdOrder(),
+//                myOrder.getIdMyOrder(),
 //                myOrder.getAuto().getIdAuto(),
 //                myOrder.getCreateDate(),
 //                myOrder.getLastUpdate(),
@@ -36,7 +36,7 @@
 //        );
 //
 ////        return MyOrderCreateResponseDto.builder()
-////                .idOrder(myOrder.getIdOrder())
+////                .idOrder(myOrder.getIdMyOrder())
 ////                .idAuto(idAuto)
 ////                .createDate(myOrder.getCreateDate())
 ////                .lastUpdate(myOrder.getLastUpdate())
@@ -61,7 +61,7 @@
 //                                    spq.getQuantity())).toList();
 //
 //        return MyOrderByIdResponseDto.builder()
-//                .idOrder(myOrder.getIdOrder())
+//                .idOrder(myOrder.getIdMyOrder())
 //                .idAuto(myOrder.getAuto().getIdAuto())
 //
 //                .sparePartsList(spareParts)

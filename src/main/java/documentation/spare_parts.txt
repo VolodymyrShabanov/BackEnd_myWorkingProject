@@ -1,0 +1,10 @@
+{"name": "Фильтр масляный V40","quantity": 30,"description": "для легковых автомобилей"}
+{"name": "Тормозные колодки","quantity": 50,"description": "для дисковых тормозных систем"}
+{"name": "Свечи зажигания NGK BKR6E","quantity": 40,"description": "стандартный размер"}
+{"name": "Воздушный фильтр K&N 33-2031-2","quantity": 25,"description": "производит повышенный воздушный поток"}
+{"name": "Шаровая опора","quantity": 20,"description": "для передней подвески"}
+{"name": "Ремень ГРМ Gates TCK295A","quantity": 15,"description": "с низким уровнем шума"}
+{"name": "Амортизаторы KYB Excel-G","quantity": 35,"description": "продлевает срок службы подвески"}
+{"name": "Стеклоочиститель Bosch Aerotwin","quantity": 60,"description": "быстрая и бесшумная работа"}
+{"name": "Аккумуляторная батарея Exide Excell","quantity": 10,"description": "высокая емкость и долговечность"}
+{"name": "Радиатор охлаждения двигателя","quantity": 25,"description": "с увеличенным количеством охлаждающих ребер"}

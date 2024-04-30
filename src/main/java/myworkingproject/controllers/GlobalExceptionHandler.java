@@ -1,10 +1,10 @@
 package myworkingproject.controllers;
 
 
-import myworkingproject.service.exeption.AlreadyExistException;
-import myworkingproject.service.exeption.CalculateException;
-import myworkingproject.service.exeption.IllegalArgumentException;
-import myworkingproject.service.exeption.NotFoundException;
+import myworkingproject.services.exeptions.AlreadyExistException;
+import myworkingproject.services.exeptions.CalculateException;
+import myworkingproject.services.exeptions.IllegalArgumentException;
+import myworkingproject.services.exeptions.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;

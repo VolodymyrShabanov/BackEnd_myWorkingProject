@@ -26,3 +26,8 @@
 11. почему нужно віполнять Auto saveAuto = autoRepository.save(updateAuto);
 почеему не работает .set... => updateAuto.setModel(request.getModel());
 12. @Component and @Bean and @Autowired
+
+/=======================================================================/
+13. Equals and HashCode and @Data
+14. Подключить Html к SpringBoot
+15. Создание связей One to Many / Many to One и как ими управлять. SQL запросы в Java
